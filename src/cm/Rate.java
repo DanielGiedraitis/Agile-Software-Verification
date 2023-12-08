@@ -90,28 +90,8 @@ public class Rate {
     public BigDecimal calculate(Period periodStay) {
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
-
-        RateCalculationStrategy strategy;
-        switch (this.kind) {
-            case STAFF:
-                strategy = new StaffRateCalculationStrategy();
-                break;
-            case STUDENT:
-                strategy = new StudentRateCalculationStrategy();
-                break;
-            case MANAGEMENT:
-                strategy = new ManagementRateCalculationStrategy();
-                break;
-            case VISITOR:
-                strategy = new VisitorRateCalculationStrategy();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid CarParkKind");
-        }
-
-        BigDecimal totalCost = (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
-                .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-
-        return strategy.calculateRate(totalCost);
+        if (this.kind==CarParkKind.VISITOR) return BigDecimal.valueOf(0);
+        return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
+                this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
     }
 }
