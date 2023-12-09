@@ -107,6 +107,13 @@ public class Rate {
                     BigDecimal reduction = amountAboveFree.multiply(reducedRate);
                     return reduction;
                 }
+
+            case MANAGEMENT:
+                BigDecimal managementCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+                return managementCost.max(BigDecimal.valueOf(5));
+
             default:
                 // For other CarParkKinds, use normal calculation
                 return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
