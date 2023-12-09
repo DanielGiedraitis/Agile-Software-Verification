@@ -423,6 +423,6 @@ class GiedraitisDanielTestTask3 {
                 }}
         );
         BigDecimal periodStay = visitorRate.calculate(new Period(8, 12));
-        assertEquals(BigDecimal.valueOf(2.5), periodStay); // Expected: Pay 2.5
+        assertEquals(new BigDecimal("2.50"), periodStay); // Expected: Pay 2.50
     }
 }
