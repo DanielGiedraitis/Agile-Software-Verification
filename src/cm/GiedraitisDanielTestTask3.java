@@ -405,4 +405,24 @@ class GiedraitisDanielTestTask3 {
                 }}
         ));
     }
+
+
+    /*-------------------------------------------------------------------------------------------------
+    ---------------------------------------- Task 3 TDD Tests -----------------------------------------
+    -------------------------------------------------------------------------------------------------*/
+
+    @Test
+    public void testVisitorPay2_5() {
+        // Creating a Visitor Rate object with an hourly normal rate of 5 and reduced rate of 2.5
+        Rate visitorRate = new Rate(CarParkKind.VISITOR, BigDecimal.valueOf(5), BigDecimal.valueOf(2.5),
+                new ArrayList<Period>() {{
+                    add(new Period(6, 10));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(10, 14));
+                }}
+        );
+        BigDecimal periodStay = visitorRate.calculate(new Period(8, 12));
+        assertEquals(BigDecimal.valueOf(2.5), periodStay); // Expected: Pay 2.5
+    }
 }
