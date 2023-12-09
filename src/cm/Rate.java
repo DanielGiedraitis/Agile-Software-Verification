@@ -90,25 +90,27 @@ public class Rate {
     public BigDecimal calculate(Period periodStay) {
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
-        if (this.kind == CarParkKind.VISITOR) {
-            BigDecimal totalCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                    .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
 
-            BigDecimal freePeriod = BigDecimal.valueOf(10); // Free period limit
-            BigDecimal reducedRate = BigDecimal.valueOf(0.5); // 50% reduction
+        switch (this.kind) {
+            case VISITOR:
+                BigDecimal totalCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+                BigDecimal freePeriod = BigDecimal.valueOf(10); // Free period limit
+                BigDecimal reducedRate = BigDecimal.valueOf(0.5); // 50% reduction
 
-            // Check if the total cost exceeds the free period
-            if (totalCost.compareTo(freePeriod) <= 0) {
-                return BigDecimal.valueOf(0); // First 10.00 is free
-            } else {
-                // Calculate the amount above the free period with a 50% reduction
-                BigDecimal amountAboveFree = totalCost.subtract(freePeriod);
-                BigDecimal reduction = amountAboveFree.multiply(reducedRate);
-                return reduction;
-            }
+                // Check if the total cost exceeds the free period
+                if (totalCost.compareTo(freePeriod) <= 0) {
+                    return BigDecimal.valueOf(0); // First 10.00 is free
+                } else {
+                    // Calculate the amount above the free period with a 50% reduction
+                    BigDecimal amountAboveFree = totalCost.subtract(freePeriod);
+                    BigDecimal reduction = amountAboveFree.multiply(reducedRate);
+                    return reduction;
+                }
+            default:
+                // For other CarParkKinds, use normal calculation
+                return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
+                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
         }
-
-        return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
-                this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
     }
 }
