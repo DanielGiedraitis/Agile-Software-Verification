@@ -425,4 +425,18 @@ class GiedraitisDanielTestTask3 {
         BigDecimal periodStay = visitorRate.calculate(new Period(8, 12));
         assertEquals(new BigDecimal("2.50"), periodStay); // Expected: Pay 2.50
     }
+
+    @Test
+    public void testManagementPay5_0() {
+        Rate managementRate  = new Rate(CarParkKind.MANAGEMENT, BigDecimal.valueOf(3), BigDecimal.valueOf(2),
+                new ArrayList<Period>() {{
+                    add(new Period(4, 6));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(10, 14));
+                }}
+        );
+        BigDecimal periodStay = managementRate.calculate(new Period(8, 11));
+        assertEquals(new BigDecimal("5.00").setScale(2), periodStay.setScale(2)); // Expected: Pay 5.00
+    }
 }
