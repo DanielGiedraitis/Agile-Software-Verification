@@ -114,6 +114,20 @@ public class Rate {
 
                 return managementCost.max(BigDecimal.valueOf(5));
 
+            case STUDENT:
+            BigDecimal studentCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                    .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+            BigDecimal threshold = BigDecimal.valueOf(5.50);
+            BigDecimal excessAmount = studentCost.subtract(threshold);
+            BigDecimal reduction = BigDecimal.valueOf(0.33);
+
+            if (excessAmount.compareTo(BigDecimal.ZERO) > 0) {
+                BigDecimal reducedAmount = excessAmount.multiply(reduction);
+                studentCost = threshold.add(reducedAmount);
+            }
+            return studentCost;
+
             default:
                 // For other CarParkKinds, use normal calculation
                 return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
