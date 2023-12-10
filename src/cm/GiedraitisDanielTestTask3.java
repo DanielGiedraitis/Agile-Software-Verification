@@ -329,17 +329,6 @@ class GiedraitisDanielTestTask3 {
         assertEquals(new BigDecimal("2999.97"), result);
     }
 
-    @Test
-    public void testCalculateMinimumReducedRate() {
-        // Test Case 20: Minimum Reduced Rate
-        Rate rate7 = new Rate(CarParkKind.MANAGEMENT, new BigDecimal("6.0"), new BigDecimal("0.01"),
-                new ArrayList<Period>() {{ add(new Period(8, 12)); }},
-                new ArrayList<Period>() {{ add(new Period(14, 16)); }}
-        );
-        BigDecimal result = rate7.calculate(new Period(14, 16));
-        assertEquals(new BigDecimal("0.02"), result);
-    }
-
 
     // White box test cases added for the Period class
     @Test
@@ -438,5 +427,15 @@ class GiedraitisDanielTestTask3 {
         );
         BigDecimal periodStay = managementRate.calculate(new Period(8, 11));
         assertEquals(new BigDecimal("5.00").setScale(2), periodStay.setScale(2)); // Expected: Pay 5.00
+    }
+
+    @Test
+    public void testManagementPayOver5() {
+        Rate managementRate = new Rate(CarParkKind.MANAGEMENT, new BigDecimal("6.0"), new BigDecimal("3"),
+                new ArrayList<Period>() {{ add(new Period(8, 12)); }},
+                new ArrayList<Period>() {{ add(new Period(14, 16)); }}
+        );
+        BigDecimal result = managementRate.calculate(new Period(10, 16));
+        assertEquals(new BigDecimal("18.0"), result); // Expected: Pay 18.0
     }
 }
