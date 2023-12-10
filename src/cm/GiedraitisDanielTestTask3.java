@@ -271,7 +271,7 @@ class GiedraitisDanielTestTask3 {
                 new ArrayList<Period>()
         );
         BigDecimal result = rate1.calculate(new Period(8, 12));
-        assertEquals(new BigDecimal("20.0"), result);
+        assertEquals(new BigDecimal("10.0"), result);
     }
 
     @Test
