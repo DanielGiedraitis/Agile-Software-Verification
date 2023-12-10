@@ -91,20 +91,20 @@ public class Rate {
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
 
-        RateCalculationStrategy strategy;
+        RateCalculationStrategy calculationStrategy;
 
         switch (this.kind) {
             case VISITOR:
-                strategy = new VisitorRateCalculationStrategy();
+                calculationStrategy = new VisitorRateCalculationStrategy();
                 break;
             case MANAGEMENT:
-                strategy = new ManagementRateCalculationStrategy();
+                calculationStrategy = new ManagementRateCalculationStrategy();
                 break;
             case STUDENT:
-                strategy = new StudentRateCalculationStrategy();
+                calculationStrategy = new StudentRateCalculationStrategy();
                 break;
             case STAFF:
-                strategy = new StaffRateCalculationStrategy();
+                calculationStrategy = new StaffRateCalculationStrategy();
                 break;
             default:
                 throw new IllegalArgumentException("Unknown CarParkKind: " + this.kind);
@@ -112,6 +112,6 @@ public class Rate {
         BigDecimal cost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
                 .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
 
-        return strategy.calculateRate(cost);
+        return calculationStrategy.calculateRate(cost);
     }
 }

@@ -444,6 +444,20 @@ class GiedraitisDanielTestTask3 {
     }
 
     @Test
+    public void testStudentRateEqualTo5_50() {
+        Rate studentRate = new Rate(CarParkKind.STUDENT, BigDecimal.valueOf(5.50), BigDecimal.valueOf(3.00),
+                new ArrayList<Period>() {{
+                    add(new Period(8, 12));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(12, 14));
+                }}
+        );
+        BigDecimal periodStay = studentRate.calculate(new Period(10, 11));
+        assertEquals(BigDecimal.valueOf(5.50), periodStay);
+    }
+
+    @Test
     public void testStaffRateMaxPayable10() {
         Rate staffRate = new Rate(CarParkKind.STAFF, BigDecimal.valueOf(8.00), BigDecimal.valueOf(4.00),
                 new ArrayList<Period>() {{
