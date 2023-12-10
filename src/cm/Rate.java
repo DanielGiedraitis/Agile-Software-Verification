@@ -115,23 +115,28 @@ public class Rate {
                 return managementCost.max(BigDecimal.valueOf(5));
 
             case STUDENT:
-            BigDecimal studentCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                BigDecimal studentCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
                     .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
 
-            BigDecimal threshold = BigDecimal.valueOf(5.50);
-            BigDecimal excessAmount = studentCost.subtract(threshold);
-            BigDecimal reduction = BigDecimal.valueOf(0.33);
+                BigDecimal threshold = BigDecimal.valueOf(5.50);
+                BigDecimal excessAmount = studentCost.subtract(threshold);
+                BigDecimal reduction = BigDecimal.valueOf(0.33);
 
-            if (excessAmount.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal reducedAmount = excessAmount.multiply(reduction);
-                studentCost = threshold.add(reducedAmount);
-            }
-            return studentCost;
+                if (excessAmount.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal reducedAmount = excessAmount.multiply(reduction);
+                    studentCost = threshold.add(reducedAmount);
+                }
+                return studentCost;
+
+            case STAFF:
+                BigDecimal staffCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+                BigDecimal maxPayable = BigDecimal.valueOf(10.00);
+                return staffCost.min(maxPayable);
 
             default:
-                // For other CarParkKinds, use normal calculation
-                return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
-                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+                throw new IllegalArgumentException("Unknown CarParkKind: " + this.kind);
         }
     }
 }
