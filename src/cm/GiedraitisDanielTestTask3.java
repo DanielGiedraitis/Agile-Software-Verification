@@ -2,6 +2,7 @@ package cm;
 
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -437,5 +438,19 @@ class GiedraitisDanielTestTask3 {
         );
         BigDecimal result = managementRate.calculate(new Period(10, 16));
         assertEquals(new BigDecimal("18.0"), result); // Expected: Pay 18.0
+    }
+
+    @Test
+    public void testStudentRateAbove5_50() {
+        Rate studentRate = new Rate(CarParkKind.STUDENT, BigDecimal.valueOf(6.00), BigDecimal.valueOf(3.00),
+                new ArrayList<Period>() {{
+                    add(new Period(8, 12));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(12, 14));
+                }}
+        );
+        BigDecimal periodStay = studentRate.calculate(new Period(10, 13));
+        assertEquals(new BigDecimal("8.64").setScale(2, RoundingMode.HALF_UP), periodStay.setScale(2, RoundingMode.HALF_UP)); // Expected: 8.64
     }
 }
