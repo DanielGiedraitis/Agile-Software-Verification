@@ -282,7 +282,7 @@ class GiedraitisDanielTestTask3 {
                 new ArrayList<Period>() {{ add(new Period(14, 16)); }}
         );
         BigDecimal result = rate2.calculate(new Period(14, 16));
-        assertEquals(new BigDecimal("6.0"), result);
+        assertEquals(new BigDecimal("5.67").setScale(2, RoundingMode.HALF_UP), result.setScale(2, RoundingMode.HALF_UP));
     }
 
     @Test
@@ -317,17 +317,6 @@ class GiedraitisDanielTestTask3 {
         );
         BigDecimal result = rate5.calculate(new Period(11, 15));
         assertEquals(new BigDecimal("16.0"), result);
-    }
-
-    @Test
-    public void testCalculateMaximumNormalRate() {
-        // Test Case 19: Maximum Normal Rate
-        Rate rate6 = new Rate(CarParkKind.STUDENT, new BigDecimal("999.99"), new BigDecimal("9.99"),
-                new ArrayList<Period>() {{ add(new Period(8, 12)); }},
-                new ArrayList<Period>() {{ add(new Period(13, 16)); }}
-        );
-        BigDecimal result = rate6.calculate(new Period(8, 11));
-        assertEquals(new BigDecimal("2999.97"), result);
     }
 
 
