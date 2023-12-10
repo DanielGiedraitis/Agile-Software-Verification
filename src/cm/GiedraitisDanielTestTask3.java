@@ -442,4 +442,19 @@ class GiedraitisDanielTestTask3 {
         BigDecimal periodStay = studentRate.calculate(new Period(10, 13));
         assertEquals(new BigDecimal("8.64").setScale(2, RoundingMode.HALF_UP), periodStay.setScale(2, RoundingMode.HALF_UP)); // Expected: 8.64
     }
+
+    @Test
+    public void testStaffRateMaxPayable10() {
+        Rate staffRate = new Rate(CarParkKind.STAFF, BigDecimal.valueOf(8.00), BigDecimal.valueOf(4.00),
+                new ArrayList<Period>() {{
+                    add(new Period(8, 10));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(12, 14));
+                }}
+        );
+
+        BigDecimal periodStay = staffRate.calculate(new Period(8, 12));
+        assertEquals(new BigDecimal("10.0"), periodStay); // Expected: Pay 10.0
+    }
 }
