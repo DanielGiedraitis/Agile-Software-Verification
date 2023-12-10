@@ -112,11 +112,10 @@ public class Rate {
                 return strategy.calculateRate(studentCost);
 
             case STAFF:
-                BigDecimal staffCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-
-                BigDecimal maxPayable = BigDecimal.valueOf(10.00);
-                return staffCost.min(maxPayable);
+                strategy = new StaffRateCalculationStrategy();
+                BigDecimal staffCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+                return strategy.calculateRate(staffCost);
 
             default:
                 throw new IllegalArgumentException("Unknown CarParkKind: " + this.kind);
