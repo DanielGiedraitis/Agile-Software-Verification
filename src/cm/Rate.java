@@ -95,15 +95,15 @@ public class Rate {
         switch (this.kind) {
             case VISITOR:
                 strategy = new VisitorRateCalculationStrategy();
-                BigDecimal totalCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                BigDecimal visitorCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
                         .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-                return strategy.calculateRate(totalCost);
+                return strategy.calculateRate(visitorCost);
 
             case MANAGEMENT:
+                strategy = new ManagementRateCalculationStrategy();
                 BigDecimal managementCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
                         .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-
-                return managementCost.max(BigDecimal.valueOf(5));
+                return strategy.calculateRate(managementCost);
 
             case STUDENT:
                 BigDecimal studentCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
