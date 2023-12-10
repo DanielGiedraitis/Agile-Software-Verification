@@ -106,18 +106,10 @@ public class Rate {
                 return strategy.calculateRate(managementCost);
 
             case STUDENT:
-                BigDecimal studentCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                    .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-
-                BigDecimal threshold = BigDecimal.valueOf(5.50);
-                BigDecimal excessAmount = studentCost.subtract(threshold);
-                BigDecimal reduction = BigDecimal.valueOf(0.33);
-
-                if (excessAmount.compareTo(BigDecimal.ZERO) > 0) {
-                    BigDecimal reducedAmount = excessAmount.multiply(reduction);
-                    studentCost = threshold.add(reducedAmount);
-                }
-                return studentCost;
+                strategy = new StudentRateCalculationStrategy();
+                BigDecimal studentCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+                return strategy.calculateRate(studentCost);
 
             case STAFF:
                 BigDecimal staffCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
