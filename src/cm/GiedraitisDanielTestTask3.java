@@ -194,14 +194,13 @@ class GiedraitisDanielTestTask3 {
     public void testRateOverlappingNormalPeriods() {
         // Test Case 7: Overlapping Normal Periods
         assertThrows(IllegalArgumentException.class, () -> new Rate(
-                CarParkKind.STUDENT, new BigDecimal("7.0"), new BigDecimal("4.0"),
+                CarParkKind.MANAGEMENT, new BigDecimal("8"), new BigDecimal("4"),
                 new ArrayList<Period>() {{
-                    add(new Period(8, 12));
-                    add(new Period(11, 14)); // Overlapping periods
+                    add(new Period(2, 4));
+                    add(new Period(2, 4));
+                    add(new Period(2, 4));
                 }},
                 new ArrayList<Period>() {{
-                    add(new Period(12, 14));
-                    add(new Period(16, 18));
                 }}
         ));
     }
