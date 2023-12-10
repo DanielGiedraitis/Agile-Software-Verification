@@ -147,9 +147,15 @@ class GiedraitisDanielTestTask3 {
     public void testRateNormalAndReducedPeriodsOverlap() {
         // Test Case 3: Normal and Reduced Periods Overlap
         assertThrows(IllegalArgumentException.class, () -> new Rate(
-                CarParkKind.MANAGEMENT, new BigDecimal("6.0"), new BigDecimal("5.0"),
-                new ArrayList<Period>() {{ add(new Period(10, 15)); add(new Period(14, 18)); }},
-                new ArrayList<Period>() {{ add(new Period(12, 14)); add(new Period(16, 20)); }}
+                CarParkKind.MANAGEMENT, new BigDecimal("8"), new BigDecimal("4"),
+                new ArrayList<Period>() {{
+                    add(new Period(13, 16));
+                    add(new Period(10, 13));
+                }},
+                new ArrayList<Period>() {{
+                    add(new Period(13, 16));
+                    add(new Period(10, 13));
+                }}
         ));
     }
 
