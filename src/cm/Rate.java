@@ -92,33 +92,26 @@ public class Rate {
         int reducedRateHours = periodStay.occurences(reduced);
 
         RateCalculationStrategy strategy;
+
         switch (this.kind) {
             case VISITOR:
                 strategy = new VisitorRateCalculationStrategy();
-                BigDecimal visitorCost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                        .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-                return strategy.calculateRate(visitorCost);
-
+                break;
             case MANAGEMENT:
                 strategy = new ManagementRateCalculationStrategy();
-                BigDecimal managementCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-                return strategy.calculateRate(managementCost);
-
+                break;
             case STUDENT:
                 strategy = new StudentRateCalculationStrategy();
-                BigDecimal studentCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-                return strategy.calculateRate(studentCost);
-
+                break;
             case STAFF:
                 strategy = new StaffRateCalculationStrategy();
-                BigDecimal staffCost = hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
-                        .add(hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-                return strategy.calculateRate(staffCost);
-
+                break;
             default:
                 throw new IllegalArgumentException("Unknown CarParkKind: " + this.kind);
         }
+        BigDecimal cost = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))
+                .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+        return strategy.calculateRate(cost);
     }
 }
