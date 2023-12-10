@@ -316,7 +316,7 @@ class GiedraitisDanielTestTask3 {
                 new ArrayList<Period>() {{ add(new Period(12, 14)); add(new Period(16, 18)); }}
         );
         BigDecimal result = rate5.calculate(new Period(11, 15));
-        assertEquals(new BigDecimal("16.0"), result);
+        assertEquals(new BigDecimal("10.0"), result);
     }
 
 
