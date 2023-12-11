@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ManagementRateCalculationStrategy</title>
+  <title>Coverage Report > StaffRateCalculationStrategy</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">cm</a>
 </div>
 
-<h1>Coverage Summary for Class: ManagementRateCalculationStrategy (cm)</h1>
+<h1>Coverage Summary for Class: StaffRateCalculationStrategy (cm)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,7 +40,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">ManagementRateCalculationStrategy</td>
+  <td class="name">StaffRateCalculationStrategy</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -78,12 +78,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.math.BigDecimal;
 &nbsp;
-<b class="fc">&nbsp;public class ManagementRateCalculationStrategy implements RateCalculationStrategy {</b>
-<b class="fc">&nbsp;    private static final BigDecimal minPayable = new BigDecimal(&quot;5.00&quot;);</b>
+<b class="fc">&nbsp;public class StaffRateCalculationStrategy implements RateCalculationStrategy {</b>
+<b class="fc">&nbsp;    private static final BigDecimal maxPayable = new BigDecimal(&quot;10.0&quot;);</b>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BigDecimal calculateRate(BigDecimal totalCost) {
-<b class="fc">&nbsp;        return totalCost.max(minPayable);</b>
+<b class="fc">&nbsp;        return totalCost.min(maxPayable);</b>
 &nbsp;    }
 &nbsp;}
 </code>

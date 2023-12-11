@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ManagementRateCalculationStrategy</title>
+  <title>Coverage Report > VisitorRateCalculationStrategy</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,7 +21,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">cm</a>
 </div>
 
-<h1>Coverage Summary for Class: ManagementRateCalculationStrategy (cm)</h1>
+<h1>Coverage Summary for Class: VisitorRateCalculationStrategy (cm)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -36,11 +36,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
 <tr>
-  <td class="name">ManagementRateCalculationStrategy</td>
+  <td class="name">VisitorRateCalculationStrategy</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -62,7 +66,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (3/3)
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
   </span>
 </td>
 </tr>
@@ -78,14 +90,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.math.BigDecimal;
 &nbsp;
-<b class="fc">&nbsp;public class ManagementRateCalculationStrategy implements RateCalculationStrategy {</b>
-<b class="fc">&nbsp;    private static final BigDecimal minPayable = new BigDecimal(&quot;5.00&quot;);</b>
+<b class="fc">&nbsp;public class VisitorRateCalculationStrategy implements RateCalculationStrategy {</b>
+<b class="fc">&nbsp;    private static final BigDecimal freeAmount = new BigDecimal(&quot;10.00&quot;);</b>
+<b class="fc">&nbsp;    private static final BigDecimal reductionPercentage = new BigDecimal(&quot;0.50&quot;);</b>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BigDecimal calculateRate(BigDecimal totalCost) {
-<b class="fc">&nbsp;        return totalCost.max(minPayable);</b>
+<b class="fc">&nbsp;        if (totalCost.compareTo(freeAmount) &gt; 0) {</b>
+<b class="fc">&nbsp;            BigDecimal amountAboveFree = totalCost.subtract(freeAmount);</b>
+<b class="fc">&nbsp;            BigDecimal reduction = amountAboveFree.multiply(reductionPercentage);</b>
+<b class="fc">&nbsp;            return reduction.setScale(2, BigDecimal.ROUND_HALF_UP);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return BigDecimal.ZERO.setScale(2);</b>
 &nbsp;    }
 &nbsp;}
+&nbsp;
+&nbsp;
 </code>
 </pre>
 </div>
